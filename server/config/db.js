@@ -3,12 +3,13 @@ import dotenv from "dotenv";
 
 dotenv.config();
 const { Pool } = pkg;
+const connectionString =
+  "postgresql://neondb_owner:npg_JbXBcvnr7qx9@ep-flat-silence-a1quyn8p.ap-southeast-1.aws.neon.tech/neondb?sslmode=require";
 
-// Use connection URL from the environment variable
 const pool = new Pool({
-  connectionString: process.env.DB_URL,
+  connectionString,
   ssl: {
-    rejectUnauthorized: false, // Required for Supabase SSL connection
+    rejectUnauthorized: false,
   },
 });
 
@@ -16,7 +17,7 @@ pool.connect((err) => {
   if (err) {
     console.error("Error connecting to the database:", err.message);
   } else {
-    console.log("Connected to the PostgreSQL database on Supabase");
+    console.log("Connected to the PostgreSQL database on neon");
   }
 });
 
