@@ -85,6 +85,9 @@ export const getMessages = async (req, res) => {
     const result = await pool.query(
       "SELECT * FROM messages ORDER BY timestamp ASC"
     );
+    if(!result){
+      return " query is not available"
+    }
     res.json(result.rows);
   } catch (err) {
     console.error("Error in getMessages:", err);
