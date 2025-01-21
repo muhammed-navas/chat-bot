@@ -46,7 +46,6 @@ export const createMessage = async (req, res) => {
 
     const geminiReply =
       geminiResponse.data?.candidates?.[0]?.content?.parts?.[0]?.text;
-      console.log(geminiReply, "geminiReply");
 
     if (!geminiReply) {
       throw new Error("Invalid response from Gemini API");
@@ -56,7 +55,6 @@ export const createMessage = async (req, res) => {
       text: "INSERT INTO messages (content, sender, timestamp) VALUES ($1, $2, NOW()) RETURNING *",
       values: [geminiReply, "bot"],
     };
-console.log(botMessageQuery, "botMessageQuery");
     const botMessageResult = await client.query(botMessageQuery);
 
     if (!botMessageResult.rows[0]) {
